@@ -1,0 +1,51 @@
+<div class="container">
+    <button mat-button (click)="openDialog()">Add Category</button>
+    <button type="button">Add item</button>
+
+    <mat-accordion *ngFor="let item of category">
+        <!-- <mat-expansion-panel hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              This is the expansion title
+            </mat-panel-title>
+            <mat-panel-description>
+              This is a summary of the content
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <p>This is the primary content of the panel.</p>
+        </mat-expansion-panel> -->
+        <mat-expansion-panel (opened)="panelOpenState = true"
+                             (closed)="panelOpenState = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+             {{item.categoryName}}
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <!-- <div class="demo-button-container">
+            <button mat-raised-button (click)="addProduct()" class="demo-button">
+              Add data
+            </button>
+            <button
+                mat-raised-button
+                [disabled]="!dataToDisplay.length"
+                (click)="removeProduct()"
+                class="demo-button">
+              Remove data
+            </button>
+          </div> -->
+          
+          <table>
+            <tr>
+                <th>Product Name</th>
+                <th>Product Quantity</th>
+                <th>Product Price</th>
+            </tr>
+            <tr *ngFor="let item of product">
+                <td> {{item.productName}} </td>
+                <td> {{item.productQuantity}} </td>
+                <td> {{item.productPrice}} </td>
+            </tr>
+          </table>
+        </mat-expansion-panel>
+      </mat-accordion>
+</div>

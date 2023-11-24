@@ -1,0 +1,61 @@
+<div class="container">
+    <form (ngSubmit)="onSubmit()" [formGroup]="signUpForm">
+    <mat-form-field>
+        <mat-label>First Name</mat-label>
+        <input matInput formControlName="firstName">
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+        <mat-label>Last Name</mat-label>
+        <input matInput formControlName="lastName">
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+        <mat-label>Gender</mat-label>
+         <!-- <label for=""><input type="radio" matInput>Male</label>
+        <label for=""><input type="radio" matInput>Female</label>  -->
+         <mat-select formControlName="gender">
+            <mat-option value="male">Male</mat-option>
+            <mat-option value="female">Female</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <br>
+    <mat-form-field class="example-full-width">
+        <mat-label>Choose a date</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="dob">
+        <mat-datepicker-toggle matIconSuffix [for]="picker">
+          <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+        </mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    <br>
+    <mat-form-field>
+        <mat-label>Contact</mat-label>
+        <input matInput type="number" formControlName="contact"> 
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+        <mat-label>Email</mat-label>
+        <input matInput type="email" formControlName="email"> 
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+        <mat-label>Role</mat-label>
+        <mat-select formControlName="role">
+            <mat-option value="employee">Employee</mat-option>
+            <mat-option value="customer">Customer</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+        <mat-label>Username</mat-label>
+        <input matInput formControlName="username">
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+        <mat-label>Password</mat-label>
+        <input matInput type="password" formControlName="password">
+    </mat-form-field> <br>
+    <button mat-raised-button color="primary">Primary</button>
+    </form>
+</div> 
