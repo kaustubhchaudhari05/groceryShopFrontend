@@ -1,0 +1,12 @@
+<h2 mat-dialog-title>Item List</h2>
+<mat-dialog-content>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Quantity</th>
+        </tr>
+        <tr *ngFor="let item of purchaseItems; index as i">
+            <td>{{item}}</td>
+        </tr>
+    </table>
+</mat-dialog-content>

@@ -1,1 +1,26 @@
-<p>employee-login works!</p>
+<div class="container">
+    <mat-accordion *ngFor="let item of categorys">
+        <mat-expansion-panel (opened)="panelOpenState = true"
+                             (closed)="panelOpenState = false">
+          <mat-expansion-panel-header (click)="openProductTable(item.categoryId)">
+            <mat-panel-title>
+             {{item.categoryName}}
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <button mat-button (click)="openAddProduct()" >Add Product</button>
+          <table style="margin: 0 auto;">
+            <tr>
+                <th>Product Name</th>
+                <th>Product Quantity</th>
+                <th>Product Price</th>
+            </tr>
+            <tr *ngFor="let item of product">
+                <td> {{item.productName}} </td>
+                <td> {{item.productQuantity}} </td>
+                <td> {{item.productPrice}} </td>
+                <td><button mat-button (click)="openEditProduct(item.productId)">Edit Product</button></td>
+            </tr>
+          </table>
+        </mat-expansion-panel>
+      </mat-accordion>
+</div>

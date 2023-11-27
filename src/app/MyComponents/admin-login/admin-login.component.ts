@@ -4,7 +4,12 @@ import { AddCategoryComponent } from '../add-category/add-category.component';
 import { Category } from 'src/app/MyClass/category';
 import { DbserviceService } from 'src/app/MyService/dbservice.service';
 import { Product } from 'src/app/MyClass/product';
-import { forkJoin } from 'rxjs';
+import { Observable, forkJoin, retry } from 'rxjs';
+import { AddItemsComponent } from '../add-items/add-items.component';
+import { HttpClient } from '@angular/common/http';
+import { EditCategoryComponent } from '../edit-category/edit-category.component';
+import { EditProductComponent } from '../edit-product/edit-product.component';
+import { DialogConfig } from '@angular/cdk/dialog';
 
 @Component({
   selector: 'app-admin-login',
@@ -15,43 +20,57 @@ export class AdminLoginComponent implements OnInit{
   panelOpenState = false;
 
   category : Category[] = [] ;
-  product: Product[] = []
+  categorys: any;
+  products: any;
 
-  constructor(public dialog: MatDialog, private db: DbserviceService) {}
+  constructor(private dialog: MatDialog, private db: DbserviceService, private http: HttpClient) {}
 
   ngOnInit(): void {
    this.db.getCategory().subscribe(result => {
     this.category = result;
-    console.log(result);
+    this.categorys = result;    
    })
+  } 
 
-   const catId = this.db.getCategory();
-   const proId = this.db.getProduct();
-
-   forkJoin([catId, proId]).subscribe(
-    ([cat, pro]) => {
-      
-    }
-   )
-  
- 
+  openProductTable(categoryId: number){
+    console.log(categoryId);
+    
+    this.http.get('http://localhost:8080/product/'+categoryId).subscribe(result => {
+      this.products = result
+    })
   }
 
-  addProduct(){
-
-  }
-
-  removeProduct(){
-
-  }
-
-  openDialog() {
+  openAddCategory() {
     const dialogRef = this.dialog.open(AddCategoryComponent);
-    this.ngOnInit();
+    dialogRef.disableClose = true;
+    this.ngOnInit
+  }
 
-    dialogRef.afterClosed().subscribe(result => {
-      // console.log(`Dialog result: ${result}`);
+  openEditCategory(categoryId: number){    
+  const dialogRef = this.dialog.open(EditCategoryComponent, {
+    data: {
+      category: categoryId
+    }
+  });
+  this.ngOnInit()
+  }
+
+
+  openAddProduct() {
+    const dialogRef = this.dialog.open(AddItemsComponent);
+    dialogRef.afterClosed().subscribe(result => { 
+    })
+    dialogRef.disableClose = true;
+    this.ngOnInit();
+  }
+
+  openEditProduct(productId: number){
+    const dialogRef = this.dialog.open(EditProductComponent, { 
+      data: {
+        product:  productId
+      }
     });
+    this.ngOnInit();
   }
 
 }

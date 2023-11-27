@@ -41,6 +41,8 @@ export class DbserviceService {
     return this.http.get<any>('http://localhost:8080/category/get');
   }
 
+ 
+
   addProduct(product: Product): Observable<any> {
     return this.http.post<any>('http://localhost:8080/product/save', product);
   }
@@ -48,4 +50,5 @@ export class DbserviceService {
   getProduct(): Observable<any> {
     return this.http.get<any>('http://localhost:8080/product/get');
   }
+
 }

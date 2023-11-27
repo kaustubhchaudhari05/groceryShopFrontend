@@ -1,1 +1,26 @@
-<p>customer-login works!</p>
+<div class="container">
+  <button mat-raised-button color="primary" (click)="openList()">Items</button>
+    <mat-accordion *ngFor="let item of categorys">
+        <mat-expansion-panel (opened)="panelOpenState = true"
+                             (closed)="panelOpenState = false">
+          <mat-expansion-panel-header (click)="openProductTable(item.categoryId)">
+            <mat-panel-title>
+             {{item.categoryName}}
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <table style="margin: auto;">
+            <tr>
+                <th> Name</th>
+                <th> Quantity</th>
+                <th> Price</th>
+            </tr>
+            <tr *ngFor="let item of product">
+                <td> {{item.productName}} </td>
+                <td> {{item.productQuantity}} </td>
+                <td> {{item.productPrice}} </td>
+                <td><button mat-button (click)="addToList(item.productId)">Add</button></td>
+            </tr>
+          </table>
+        </mat-expansion-panel>
+      </mat-accordion>
+</div>

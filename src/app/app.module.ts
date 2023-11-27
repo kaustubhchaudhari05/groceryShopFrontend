@@ -22,6 +22,11 @@ import { CustomerLoginComponent } from './MyComponents/customer-login/customer-l
 import { MatDialogModule } from "@angular/material/dialog";
 import { AddCategoryComponent } from './MyComponents/add-category/add-category.component';
 import {MatExpansionModule} from '@angular/material/expansion';
+import { AddItemsComponent } from './MyComponents/add-items/add-items.component';
+import { EditCategoryComponent } from './MyComponents/edit-category/edit-category.component';
+import { EditProductComponent } from './MyComponents/edit-product/edit-product.component';
+import { ItemsListComponent } from './MyComponents/items-list/items-list.component';
+import {MatTableModule} from '@angular/material/table';
 
 @NgModule({
   declarations: [
@@ -31,7 +36,11 @@ import {MatExpansionModule} from '@angular/material/expansion';
     AdminLoginComponent,
     EmployeeLoginComponent,
     CustomerLoginComponent,
-    AddCategoryComponent
+    AddCategoryComponent,
+    AddItemsComponent,
+    EditCategoryComponent,
+    EditProductComponent,
+    ItemsListComponent
   ],
   imports: [
     BrowserModule,
@@ -49,7 +58,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
     MatIconModule,
     MatSnackBarModule,
     MatDialogModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatTableModule
   ],
   providers: [],
   bootstrap: [AppComponent]
