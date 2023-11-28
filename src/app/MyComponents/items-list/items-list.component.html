@@ -4,9 +4,17 @@
         <tr>
             <th>Name</th>
             <th>Quantity</th>
+            <th>Price</th>
         </tr>
-        <tr *ngFor="let item of purchaseItems; index as i">
-            <td>{{item}}</td>
+        <tr  *ngFor="let item of data.items; let i = index;">
+            <td>{{item.productName}}</td>
+            <td> {{item.productQuantity}} </td>
+            <td> {{item.productPrice}} </td>
+            <td (click)="onClickDelete(item.productId)"><button mat-raised-button color="primary">Remove</button></td>
         </tr>
     </table>
 </mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-button (click)="onClickPurchase()" cdkFocusInitial>Purchase</button>
+</mat-dialog-actions>

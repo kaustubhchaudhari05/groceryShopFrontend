@@ -18,6 +18,7 @@ export class CustomerLoginComponent implements OnInit {
   category : Category[] = [] ;
   categorys: any;
   product: any;
+  productsToBeAdded!: Product;
   list: Product[] = [];
 
   constructor(private db: DbserviceService, public dialog: MatDialog, private http: HttpClient){}
@@ -39,10 +40,24 @@ export class CustomerLoginComponent implements OnInit {
   }
 
   addToList(productId: any) {
+    let count:  number = 1;
+    const product = this.http.get<Product>('http://localhost:8080/product/get/'+productId).subscribe(result => {
+      this.productsToBeAdded = result;
+      this.productsToBeAdded.productQuantity=0
+      this.list.push(this.productsToBeAdded);
+    })
     
   }
 
   openList(){
+    // this.list.map(result => {
+    //   console.log(result);  
+    // });
+    let unqiue = [];
+    this.list.forEach(element => {
+      
+    })
+
     const dialogRef = this.dialog.open(ItemsListComponent, {
       data: {
         items: this.list
