@@ -1,6 +1,8 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, Inject } from '@angular/core';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Component, OnInit, Inject, numberAttribute } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { toArray } from 'rxjs';
+import { Product } from 'src/app/MyClass/product';
 
 @Component({
   selector: 'app-items-list',
@@ -10,36 +12,71 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 export class ItemsListComponent implements OnInit{
   product : any = [];
   count: number = 1;
+   total: number = 0
+  //  productIds!: Number[]  
+   purchaseid!: any
+  // dlt: any[] = []
 
-  constructor( @Inject(MAT_DIALOG_DATA) public data: any){
+  constructor( @Inject(MAT_DIALOG_DATA) public data: any, private http: HttpClient){
+    
   }
 
   ngOnInit(): void {
-    console.log(this.data.items);
+    console.log(this.data);
     
+    this.product = this.data.items
+    const tr = this.product.map((result: any) => {
+     let tr = (result.productQuantity * result.productPrice);
+      
+      return tr
+    })
+    this.total += tr
+    console.log(this.total);
     
-    for(let i=0; i<this.data.items.length; i++){
-      // this.data.items[i].productQuantity =0;
-      if(this.data.items[i].productId == this.data.items[i+1].productId) {
-        this.count++; 
-        // let x =delete this.data.items[i];
-        // console.log(x);
-        this.data.items[i].productQuantity = this.count;
-      } else {
-        this.data.items[i].productQuantity = this.count;
-      }
-      console.log(this.count);
+  }
+
+  
+
+  onClickDelete(productId: number){
+    const product1 = this.product.find((a: any) => {return a.productId === productId})
+    if(product1.productQuantity == 1) {
+      let index = this.product.indexOf(product1);
+      this.product.splice(index,1);
+      this.ngOnInit
+    } else { 
+      product1.productQuantity--;
+      this.ngOnInit
     }
     
   }
-
   onClickPurchase(){
+    //  purchaseid: Number 
+    let purchase = {
+      customerId: Number = this.data.customer.customerId,
+      date: new Date(),
+    }
 
-  }
-
-  onClickDelete(productId: number){
-    console.log(productId);
+     this.http.post("http://localhost:8080/purchase/save",purchase).subscribe((result: any) => {
+      this.purchaseid = result.purchaseid
+      // return result.purchaseid
+      
+      this.product.map((result: any) => {
+       let purchaseItem = {
+        productId: Number = result.productId,
+        productQuantity: Number = result.productQuantity,
+        purchaseid: Number = this.purchaseid
+        }
+        this.http.post("http://localhost:8080/item/save", purchaseItem).subscribe(res => {
+          console.log(res);
+          this.product = [];
+        })
+      })
     
-  }
+    })
+    
+    console.log(this.purchaseid);
+    }
 
+    
 }
+

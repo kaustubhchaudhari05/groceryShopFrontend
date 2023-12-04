@@ -7,6 +7,8 @@ import { DbserviceService } from 'src/app/MyService/dbservice.service';
 import { AddItemsComponent } from '../add-items/add-items.component';
 import { EditProductComponent } from '../edit-product/edit-product.component';
 import { Observable } from 'rxjs';
+import { Employee } from 'src/app/MyClass/employee';
+import { AuthService } from 'src/app/MyService/auth.service';
 
 @Component({
   selector: 'app-employee-login',
@@ -18,15 +20,17 @@ export class EmployeeLoginComponent implements OnInit {
   category : Category[] = [] ;
   categorys: any;
   product: any;
+  employee!: Employee;
 
 
-  constructor(private db: DbserviceService, private http: HttpClient, private dialog: MatDialog){}
+  constructor(private db: DbserviceService, private http: HttpClient, private dialog: MatDialog, private auth: AuthService){}
 
   ngOnInit(): void {
     this.db.getCategory().subscribe(result => {
       this.category = result;
       this.categorys = result
      })
+     this.employee = this.auth.getUserDetails()
   }
 
   openProductTable(categoryId: number){
@@ -39,18 +43,16 @@ export class EmployeeLoginComponent implements OnInit {
     const dialogRef = this.dialog.open(AddItemsComponent);
     dialogRef.afterClosed().subscribe(result => { 
     })
+    dialogRef.disableClose = true;
     this.ngOnInit();
   }
-  
-  openEditProduct(productId: number){
-    const dialogRef = this.dialog.open(EditProductComponent);
-    console.log(productId);
-    this.ngOnInit
-    return productId;
-  }
 
-  // openEditProduct(dialog: MatDialog, productId: number) {
-  //   return dialog.open(EditProductComponent, 
-  //     { data: productId, disableClose: true }).afterClosed();
-  // }
+  openEditProduct(productId: number){
+    const dialogRef = this.dialog.open(EditProductComponent, { 
+      data: {
+        product:  productId
+      }
+    });
+    this.ngOnInit();
+  }
 }

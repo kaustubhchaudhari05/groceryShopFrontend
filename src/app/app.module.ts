@@ -27,6 +27,7 @@ import { EditCategoryComponent } from './MyComponents/edit-category/edit-categor
 import { EditProductComponent } from './MyComponents/edit-product/edit-product.component';
 import { ItemsListComponent } from './MyComponents/items-list/items-list.component';
 import {MatTableModule} from '@angular/material/table';
+import { BillsComponent } from './MyComponents/bills/bills.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import {MatTableModule} from '@angular/material/table';
     AddItemsComponent,
     EditCategoryComponent,
     EditProductComponent,
-    ItemsListComponent
+    ItemsListComponent,
+    BillsComponent
   ],
   imports: [
     BrowserModule,

@@ -10,6 +10,7 @@ import { HttpClient } from '@angular/common/http';
 import { EditCategoryComponent } from '../edit-category/edit-category.component';
 import { EditProductComponent } from '../edit-product/edit-product.component';
 import { DialogConfig } from '@angular/cdk/dialog';
+import { AuthService } from 'src/app/MyService/auth.service';
 
 @Component({
   selector: 'app-admin-login',
@@ -22,14 +23,16 @@ export class AdminLoginComponent implements OnInit{
   category : Category[] = [] ;
   categorys: any;
   products: any;
+  admin: any;
 
-  constructor(private dialog: MatDialog, private db: DbserviceService, private http: HttpClient) {}
+  constructor(private dialog: MatDialog, private db: DbserviceService, private http: HttpClient, private auth: AuthService) {}
 
   ngOnInit(): void {
    this.db.getCategory().subscribe(result => {
     this.category = result;
     this.categorys = result;    
    })
+   this.admin = this.auth.getUserDetails()
   } 
 
   openProductTable(categoryId: number){

@@ -1,12 +1,13 @@
 <nav>
   <h2>Grocery shop</h2>
-  <ul style="list-style: none;">
-    <li><a routerLink="login">Login</a></li>
-    <li><a routerLink="signup">Sign up</a></li>
+  <ul style="list-style: none;" >
+    <li><a routerLink="login" *ngIf="!loginSession">Login</a></li>
+    <li><a routerLink="signup" *ngIf="!loginSession" >Sign up</a></li>
   </ul>
+  <button  (click)="logout()">Logout</button>
 </nav>
 
-<div class="content">
+<div class="content" >
   Welcome to Grocery shop
 </div>
 <router-outlet></router-outlet>

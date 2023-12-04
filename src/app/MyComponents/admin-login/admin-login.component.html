@@ -1,6 +1,7 @@
 <div class="container">
 
     <button mat-button (click)="openAddCategory()" >Add Category</button>
+    <a routerLink="">Bills</a>
 
     <mat-accordion *ngFor="let item of categorys ">
         <mat-expansion-panel (opened)="panelOpenState = true"

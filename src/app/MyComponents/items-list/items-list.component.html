@@ -1,17 +1,29 @@
 <h2 mat-dialog-title>Item List</h2>
 <mat-dialog-content>
     <table>
+        <thead>
         <tr>
             <th>Name</th>
             <th>Quantity</th>
             <th>Price</th>
+            <th>Total</th>
         </tr>
-        <tr  *ngFor="let item of data.items; let i = index;">
+    </thead>
+    <tbody>
+        <tr  *ngFor="let item of product">
             <td>{{item.productName}}</td>
             <td> {{item.productQuantity}} </td>
             <td> {{item.productPrice}} </td>
+            <td> {{item.productQuantity * item.productPrice}} </td>
             <td (click)="onClickDelete(item.productId)"><button mat-raised-button color="primary">Remove</button></td>
         </tr>
+    </tbody>
+    <tfoot>
+        <td>Total</td>
+        <td></td>
+        <td></td>
+        <td> total </td>
+    </tfoot>
     </table>
 </mat-dialog-content>
 <mat-dialog-actions>

@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { forkJoin } from 'rxjs';
+import { AuthService } from 'src/app/MyService/auth.service';
 import { DbserviceService } from 'src/app/MyService/dbservice.service';
 
 @Component({
@@ -14,7 +15,7 @@ import { DbserviceService } from 'src/app/MyService/dbservice.service';
 export class LoginPageComponent {
   loginForm!: FormGroup;
 
-  constructor(private fb: FormBuilder, private snackBar: MatSnackBar, private db: DbserviceService, private router: Router, private http: HttpClient){
+  constructor(private fb: FormBuilder, private snackBar: MatSnackBar, private db: DbserviceService, private router: Router, private http: HttpClient, private auth: AuthService){
     this.loginForm = this.fb.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
@@ -36,10 +37,16 @@ export class LoginPageComponent {
           const customer = customerDetails1.find((c: any) => c.username === this.loginForm.value.username && c.password === this.loginForm.value.password);
 
           if(admin){
+            this.auth.login(admin);
+            alert("Welcome " + admin.firstName.toUpperCase())
             this.router.navigate(['/admin-login'])
           } else if(employee) {
+            this.auth.login(employee);
+            alert("Welcome " + employee.firstName.toUpperCase())
             this.router.navigate(['/employee-login']);
           } else if(customer) {
+            this.auth.login(customer);
+            alert("Welcome " + customer.firstName.toUpperCase())
             this.router.navigate(['/customer-login']);
           } else {
             alert('User not found');
